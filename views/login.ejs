@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="<%= lang %>">
+<head>
+  <meta charset="UTF-8">
+  <title>Login - Citātu arhīvs</title>
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+  <main class="login-page">
+    <h2>Ienākt</h2>
+    <form action="/login?lang=<%= lang %>" method="post">
+      <% if (error) { %>
+        <p class="error"><%= error %></p>
+      <% } %>
+      <label>
+        Lietotājvārds:<br>
+        <input type="text" name="user" required>
+      </label>
+      <br>
+      <label>
+        Parole:<br>
+        <input type="password" name="pass" required>
+      </label>
+      <br>
+      <button type="submit">Ienākt</button>
+    </form>
+    <p>
+      Vai vēl neesi reģistrējies? 
+      <a href="/register?lang=<%= lang %>">Reģistrēties</a>
+    </p>
+  </main>
+</body>
+</html>

@@ -1,0 +1,1 @@
+console.log('Citātu arhīvs ielādēts');

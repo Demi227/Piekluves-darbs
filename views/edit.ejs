@@ -1,0 +1,16 @@
+<section class="edit-quote">
+    <h2><%= lang === 'en' ? 'Edit Quote' : 'Rediģēt citātu' %></h2>
+    <form action="/quotes/<%= quote.id %>/edit?lang=<%= lang %>" method="post">
+      <div class="form-group">
+        <label for="text"><%= lang === 'en' ? 'Quote Text' : 'Citāta teksts' %>:</label>
+        <textarea id="text" name="text" rows="4" required><%= quote.text %></textarea>
+      </div>
+      <div class="form-group">
+        <label for="author"><%= lang === 'en' ? 'Author' : 'Autors' %>:</label>
+        <input id="author" type="text" name="author" value="<%= quote.author %>" required />
+      </div>
+      <button type="submit"><%= lang === 'en' ? 'Save' : 'Saglabāt' %></button>
+      <a href="/?lang=<%= lang %>"><%= lang === 'en' ? 'Cancel' : 'Atcelt' %></a>
+    </form>
+  </section>
+  

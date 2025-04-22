@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="<%= lang %>">
+<head>
+  <meta charset="UTF-8">
+  <title>Citātu arhīvs</title>
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+  <header>
+    <h1>Citāti</h1>
+
+    <!-- 1) Rakstnieku filtrs -->
+    <div class="filter">
+      <label for="langSelect">Rakstnieki:</label>
+      <select id="langSelect"
+              onchange="window.location='/?lang='+this.value+'&authorSearch='+encodeURIComponent('<%= authorSearch %>')">
+        <option value="lv" <%= lang==='lv' ? 'selected' : '' %>>Latviešu</option>
+        <option value="en" <%= lang==='en' ? 'selected' : '' %>>Ārzemju</option>
+      </select>
+    </div>
+
+    <!-- 2) Autoru filtrs -->
+    <% if (typeof authors !== 'undefined' && authors.length > 0) { %>
+    <div class="filter">
+      <label for="authorSelect">Autors:</label>
+      <select id="authorSelect"
+              onchange="window.location='/?lang='+encodeURIComponent('<%= lang %>')+'&authorSearch='+encodeURIComponent(this.value)">
+        <option value="" <%= !authorSearch ? 'selected' : '' %>>Visi</option>
+        <% authors.forEach(name => { %>
+          <option value="<%= name %>" <%= authorSearch===name ? 'selected' : '' %>><%= name %></option>
+        <% }) %>
+      </select>
+    </div>
+    <% } %>
+
+    <!-- 3) Lietotāja pieteikšanās/iziešana -->
+    <div class="auth-box">
+      <% if (user) { %>
+        <form action="/logout?lang=<%= lang %>" method="post" style="display:inline;">
+          <button type="submit" class="auth-btn">Iziet</button>
+        </form>
+      <% } else { %>
+        <a href="/login?lang=<%= lang %>"    class="auth-btn">Ienākt</a>
+        <a href="/register?lang=<%= lang %>" class="auth-btn">Reģistrēties</a>
+      <% } %>
+    </div>
+  </header>
+
+  <main><%- body %></main>
+  <script src="/js/script.js"></script>
+</body>
+</html>

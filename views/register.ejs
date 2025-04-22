@@ -1,0 +1,49 @@
+<section class="register">
+  <h2>Reģistrēšanās</h2>
+  <% if (error) { %>
+    <p style="color:red;"><%= error %></p>
+  <% } %>
+
+  <form action="/register?lang=<%= lang %>" method="post">
+    <div class="form-group">
+      <label for="username">Lietotājvārds:</label>
+      <input
+        type="text"
+        id="username"
+        name="username"
+        required
+        pattern="[A-Za-z]{4,}"
+        title="Lietotājvārdā drīkst būt tikai burti, vismaz 4 simboli"
+      />
+    </div>
+
+    <div class="form-group">
+      <label for="pass1">Parole:</label>
+      <input
+        type="password"
+        id="pass1"
+        name="pass1"
+        required
+        minlength="8"
+        pattern="(?=.*[A-Za-z])(?=.*\d).{8,}"
+        title="Vismaz 8 simboli, ar vismaz vienu burtu un vienu ciparu"
+      />
+    </div>
+
+    <div class="form-group">
+      <label for="pass2">Parole atkārtoti:</label>
+      <input
+        type="password"
+        id="pass2"
+        name="pass2"
+        required
+        minlength="8"
+        title="Atkārtojiet paroli"
+      />
+    </div>
+
+    <button type="submit">Reģistrēties</button>
+  </form>
+
+  <p>Jau reģistrējies? <a href="/login?lang=<%= lang %>">Ienākt šeit</a>.</p>
+</section>

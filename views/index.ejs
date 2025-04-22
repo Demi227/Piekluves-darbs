@@ -1,0 +1,55 @@
+<!-- views/index.ejs -->
+
+<!-- Meklēšanas forma -->
+<section class="search">
+  <form action="/" method="get">
+    <input type="hidden" name="lang" value="<%= lang %>">
+    <input
+      type="text"
+      name="authorSearch"
+      placeholder="Meklēt pēc autora"
+      value="<%= authorSearch || '' %>"
+    >
+    <button type="submit">Meklēt</button>
+    <a href="/?lang=<%= lang %>">Atjaunot</a>
+  </form>
+</section>
+
+<!-- Pievienošanas forma (redzama tikai pieteikušiem) -->
+<% if (user) { %>
+<section class="add-quote">
+  <h2>Pievienot citātu</h2>
+  <form action="/add?lang=<%= lang %>" method="post">
+    <textarea name="text" required placeholder="Citāts…"></textarea>
+    <input type="text" name="author" required placeholder="Autors">
+    <button type="submit">Pievienot</button>
+  </form>
+</section>
+<% } %>
+
+<!-- Citātu saraksts -->
+<section class="quotes-list">
+  <% if (!quotes || quotes.length === 0) { %>
+    <p>Nekādi citāti netika atrasti.</p>
+  <% } else { %>
+    <ul>
+      <% quotes.forEach(q => { %>
+        <li class="quote-item">
+          <blockquote>
+            <p><%= q.text %></p>
+            <footer>— <%= q.name %></footer>
+          </blockquote>
+          <% if (user) { %>
+          <div class="quote-actions">
+            <a href="/quotes/<%= q.id %>/edit?lang=<%= lang %>" class="btn">Rediģēt</a>
+            <form action="/quotes/delete" method="post" onsubmit="return confirm('Dzēst šo citātu?');" style="display:inline">
+              <input type="hidden" name="id" value="<%= q.id %>">
+              <button type="submit" class="btn">Dzēst</button>
+            </form>
+          </div>
+          <% } %>
+        </li>
+      <% }) %>
+    </ul>
+  <% } %>
+</section>
